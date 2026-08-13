@@ -4,6 +4,7 @@ using TP_05.Models;
 
 namespace TP_05.Models;
 
-public class BD{
+public class BD
+{
     
 }
