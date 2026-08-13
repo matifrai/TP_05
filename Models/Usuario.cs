@@ -8,6 +8,5 @@ public class Usuario
     public string apellido { get; set; }
     public string contraseña { get; set; }
     public string tipoUsuario { get; set; }
-
-    
+   
 }
