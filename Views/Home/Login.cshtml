@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Login";
+}
+<!--Formulario para iniciar sesión con nombre de usuario y contraseña-->
+<div class="text-center">
+    <h1 class="display-4">Iniciar Sesión</h1>
+    <form method="post" action="@Url.Action("Login", "Home")">
+        <div class="mb-3">
+            <label for="usuario" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" id="usuario" name="usuario" required>
+        </div>
+        <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+    </form>
+</div>
