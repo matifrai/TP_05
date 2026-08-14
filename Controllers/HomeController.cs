@@ -51,24 +51,15 @@ public class HomeController : Controller
     }
     [HttpPost]
     public IActionResult Registrarse(string nombre, string apellido, string usuario, string contrasena, string tipoUsuario){
-        if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(usuario)
-            || string.IsNullOrWhiteSpace(contrasena) || string.IsNullOrWhiteSpace(tipoUsuario))
-        {
-            ViewBag.Error = "Todos los campos son obligatorios.";
-            return View();
-        }
-
         BD bd = new BD();
         Usuarios usuarioExistente = bd.ObtenerUsuarioPorNombre(usuario);
 
-        if (usuarioExistente != null)
-        {
+        if (usuarioExistente != null){
             ViewBag.Error = "El nombre de usuario ya existe.";
             return View();
         }
 
-        Usuarios nuevoUsuario = new Usuarios
-        {
+        Usuarios nuevoUsuario = new Usuarios{
             Nombre = nombre,
             Apellido = apellido,
             NombreUsuario = usuario,
