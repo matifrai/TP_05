@@ -20,9 +20,11 @@ public class HomeController : Controller
     }
 
 
+
     public IActionResult Index(){
         return View();
     }
+
     public IActionResult Login(){
         return View();
     }
@@ -43,6 +45,7 @@ public class HomeController : Controller
 
         return RedirectToAction("PaginaPrivada");
     }
+
     public IActionResult Registrarse(){
         return View();
     }
@@ -76,22 +79,11 @@ public class HomeController : Controller
         bd.AgregarUsuario(nuevoUsuario);
         return RedirectToAction("Login");
     }
-    public IActionResult Bienvenida(){
-        string usuario = HttpContext.Session.GetString("usuario");
 
-        if (usuario == null || usuario == "")
-        {
-            return RedirectToAction("Login");
-        }
-
-        ViewBag.Usuario = usuario;
-        return View();
-    }
     public IActionResult PaginaPrivada(){
         string usuario = HttpContext.Session.GetString("usuario");
 
-        if (usuario == null || usuario == "")
-        {
+        if (usuario == null || usuario == ""){
             return RedirectToAction("Login");
         }
 
