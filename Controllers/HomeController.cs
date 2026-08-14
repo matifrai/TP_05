@@ -8,29 +8,30 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
-    {
+    public HomeController(ILogger<HomeController> logger){
         _logger = logger;
     }
-
-    public IActionResult Index()
-    {
+    public IActionResult Privacy(){
         return View();
     }
-
-    public IActionResult Login()
-    {
-        return View();
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error(){
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
+
+    public IActionResult Index(){
+        return View();
+    }
+    public IActionResult Login(){
+        return View();
+    }
     [HttpPost]
-    public IActionResult Login(string usuario, string contrasena)
-    {
+    public IActionResult Login(string usuario, string contrasena){
         BD bd = new BD();
         Usuarios usuarioEncontrado = bd.ObtenerUsuario(usuario, contrasena);
 
-        if (usuarioEncontrado == null)
-        {
+        if (usuarioEncontrado == null){
             ViewBag.Error = "Usuario o contraseña incorrectos.";
             return View();
         }
@@ -40,17 +41,13 @@ public class HomeController : Controller
         HttpContext.Session.SetString("apellido", usuarioEncontrado.Apellido);
         HttpContext.Session.SetString("tipoUsuario", usuarioEncontrado.TipoUsuario);
 
-        return RedirectToAction("Bienvenida");
+        return RedirectToAction("PaginaPrivada");
     }
-
-    public IActionResult Registrarse()
-    {
+    public IActionResult Registrarse(){
         return View();
     }
-
     [HttpPost]
-    public IActionResult Registrarse(string nombre, string apellido, string usuario, string contrasena, string tipoUsuario)
-    {
+    public IActionResult Registrarse(string nombre, string apellido, string usuario, string contrasena, string tipoUsuario){
         if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(usuario)
             || string.IsNullOrWhiteSpace(contrasena) || string.IsNullOrWhiteSpace(tipoUsuario))
         {
@@ -79,9 +76,7 @@ public class HomeController : Controller
         bd.AgregarUsuario(nuevoUsuario);
         return RedirectToAction("Login");
     }
-
-    public IActionResult Bienvenida()
-    {
+    public IActionResult Bienvenida(){
         string usuario = HttpContext.Session.GetString("usuario");
 
         if (usuario == null || usuario == "")
@@ -92,9 +87,7 @@ public class HomeController : Controller
         ViewBag.Usuario = usuario;
         return View();
     }
-
-    public IActionResult PaginaPrivada()
-    {
+    public IActionResult PaginaPrivada(){
         string usuario = HttpContext.Session.GetString("usuario");
 
         if (usuario == null || usuario == "")
@@ -113,14 +106,5 @@ public class HomeController : Controller
         return View(usuarioActual);
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }

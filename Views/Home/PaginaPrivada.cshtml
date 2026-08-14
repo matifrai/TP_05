@@ -2,6 +2,11 @@
 @{
     ViewData["Title"] = "Página privada";
 }
+<div class="text-center">
+    <h1 class="display-4">Bienvenido al Campus Escolar</h1>
+    <p class="lead">Has iniciado sesión correctamente como <strong>@ViewBag.Usuario</strong>. Ahora puedes acceder a tu página privada.</p>
+    <a href="@Url.Action("PaginaPrivada", "Home")" class="btn btn-success">Ir a mi página privada</a>
+</div>
 
 <div class="container mt-4">
     <div class="card shadow-sm">
