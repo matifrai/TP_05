@@ -35,4 +35,22 @@ public class BD{
         return usuario;
     }
 
+    public Usuarios ObtenerUsuarioPorNombre(string nombreUsuario){
+        Usuarios usuario = null;
+        string query = "SELECT TOP 1 * FROM Usuarios WHERE NombreUsuario = @pNombreUsuario";
+        using(SqlConnection connection = new SqlConnection(_connectionString)){
+            usuario = connection.QueryFirstOrDefault<Usuarios>(query, new { pNombreUsuario = nombreUsuario });
+        }
+        return usuario;
+    }
+
+    public Usuarios ObtenerUsuario(string nombreUsuario, string contrasena){
+        Usuarios usuario = null;
+        string query = "SELECT TOP 1 * FROM Usuarios WHERE NombreUsuario = @pNombreUsuario AND Contraseña = @pContraseña";
+        using(SqlConnection connection = new SqlConnection(_connectionString)){
+            usuario = connection.QueryFirstOrDefault<Usuarios>(query, new { pNombreUsuario = nombreUsuario, pContraseña = contrasena });
+        }
+        return usuario;
+    }
+
 }

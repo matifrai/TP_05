@@ -1,9 +1,9 @@
 @{
     ViewData["Title"] = "Bienvenida";
 }
-<!--Mostrar mensaje de bienvenida al campus escolar donde puede acceder a una pagina privada donde muestra los datos del usuario-->
+
 <div class="text-center">
     <h1 class="display-4">Bienvenido al Campus Escolar</h1>
-    <p class="lead">Has iniciado sesión correctamente. Ahora puedes acceder a tu página privada donde se muestran tus datos de usuario.</p>
+    <p class="lead">Has iniciado sesión correctamente como <strong>@ViewBag.Usuario</strong>. Ahora puedes acceder a tu página privada.</p>
     <a href="@Url.Action("PaginaPrivada", "Home")" class="btn btn-success">Ir a mi página privada</a>
 </div>
