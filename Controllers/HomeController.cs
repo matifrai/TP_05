@@ -33,4 +33,17 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult PaginaPrivada(int id = 1)
+    {
+        var bd = new BD();
+        var usuario = bd.ObtenerUsuarioPorId(id);
+
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+
+        return View(usuario);
+    }
+
 }
