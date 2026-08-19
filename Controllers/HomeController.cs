@@ -74,17 +74,9 @@ public class HomeController : Controller
     public IActionResult PaginaPrivada(){
         string usuario = HttpContext.Session.GetString("usuario");
 
-        if (usuario == null || usuario == ""){
-            return RedirectToAction("Login");
-        }
-
         BD bd = new BD();
         Usuarios usuarioActual = bd.ObtenerUsuarioPorNombre(usuario);
-
-        if (usuarioActual == null)
-        {
-            return RedirectToAction("Login");
-        }
+        ViewBag.Usuario = usuarioActual.Nombre;
 
         return View(usuarioActual);
     }
