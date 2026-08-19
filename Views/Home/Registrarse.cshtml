@@ -1,4 +1,3 @@
-
 @{
     ViewData["Title"] = "Registrarse";
 }
@@ -11,7 +10,7 @@
         <div class="alert alert-danger">@ViewBag.Error</div>
     }
 
-    <form id="registroForm" method="post" action="@Url.Action("Registrarse", "Home")">
+    <form id="registroForm" method="post" action="@Url.Action("Registrarse", "Home")" onsubmit="return validarFormulario();">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="nombre" required>
