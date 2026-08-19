@@ -81,5 +81,10 @@ public class HomeController : Controller
         return View(usuarioActual);
     }
 
+    [HttpPost]
+    public IActionResult CerrarSesion(){
+        HttpContext.Session.Clear();
+        return RedirectToAction("Index");
+    }
 
 }
