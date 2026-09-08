@@ -48,7 +48,7 @@ public class HomeController : Controller
         return View();
     }
     [HttpPost]
-    public IActionResult Registrarse(string? nombre, string? apellido, string? usuario, string? contrasena, string? tipoUsuario){
+    public IActionResult Registrarse(string nombre, string apellido, string usuario, string contrasena, string tipoUsuario){
         if (nombre == null || nombre.Length < 2 ||
             apellido == null || apellido.Length < 2 ||
             usuario == null || usuario.Length < 4 ||
