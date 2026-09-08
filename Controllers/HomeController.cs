@@ -20,11 +20,9 @@ public class HomeController : Controller
     }
 
 
-
     public IActionResult Index(){
         return View();
     }
-
     public IActionResult Login(){
         return View();
     }
@@ -50,7 +48,16 @@ public class HomeController : Controller
         return View();
     }
     [HttpPost]
-    public IActionResult Registrarse(string nombre, string apellido, string usuario, string contrasena, string tipoUsuario){
+    public IActionResult Registrarse(string? nombre, string? apellido, string? usuario, string? contrasena, string? tipoUsuario){
+        if (nombre == null || nombre.Length < 2 ||
+            apellido == null || apellido.Length < 2 ||
+            usuario == null || usuario.Length < 4 ||
+            contrasena == null || contrasena.Length < 6 ||
+            tipoUsuario == null || tipoUsuario.Length == 0){
+            ViewBag.Error = "Complete los campos con datos válidos: nombre y apellido de al menos 2 caracteres, usuario de 4 y contraseña de 6.";
+            return View();
+        }
+
         BD bd = new BD();
         Usuarios usuarioExistente = bd.ObtenerUsuarioPorNombre(usuario);
 
@@ -74,11 +81,15 @@ public class HomeController : Controller
     public IActionResult PaginaPrivada(){
         string usuario = HttpContext.Session.GetString("usuario");
 
-        BD bd = new BD();
-        Usuarios usuarioActual = bd.ObtenerUsuarioPorNombre(usuario);
-        ViewBag.Usuario = usuarioActual.Nombre;
-
-        return View(usuarioActual);
+        if (usuario == null){
+            return RedirectToAction("Login");
+        }
+        else{
+            BD bd = new BD();
+            Usuarios usuarioActual = bd.ObtenerUsuarioPorNombre(usuario);
+            ViewBag.Usuario = usuarioActual.Nombre;
+            return View(usuarioActual);
+        }
     }
 
     [HttpPost]
