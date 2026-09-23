@@ -28,6 +28,13 @@ public class HomeController : Controller
     }
     [HttpPost]
     public IActionResult Login(string usuario, string contrasena){
+
+        if (usuario == null || usuario.Length < 4 ||
+            contrasena == null || contrasena.Length < 6){
+            ViewBag.Error = "El usuario debe tener al menos 4 caracteres y la contraseña 6.";
+            return View();
+        }
+
         BD bd = new BD();
         Usuarios usuarioEncontrado = bd.ObtenerUsuario(usuario, contrasena);
 
@@ -82,14 +89,22 @@ public class HomeController : Controller
         string usuario = HttpContext.Session.GetString("usuario");
 
         if (usuario == null){
+           return RedirectToAction("Login");
+        }
+
+        BD bd = new BD();
+        Usuarios usuarioActual = bd.ObtenerUsuarioPorNombre(usuario);
+
+        if (usuarioActual == null){
             return RedirectToAction("Login");
         }
-        else{
-            BD bd = new BD();
-            Usuarios usuarioActual = bd.ObtenerUsuarioPorNombre(usuario);
-            ViewBag.Usuario = usuarioActual.Nombre;
-            return View(usuarioActual);
-        }
+
+        ViewBag.Usuario = usuarioActual.Nombre;
+        return View(usuarioActual);
+    }
+
+ViewBag.Usuario = usuarioActual.Nombre;
+return View(usuarioActual);
     }
 
     [HttpPost]

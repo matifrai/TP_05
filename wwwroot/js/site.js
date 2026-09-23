@@ -1,8 +1,8 @@
 ﻿function validarFormulario() {
-    const nombre = document.getElementById('nombre').value.trim();
-    const apellido = document.getElementById('apellido').value.trim();
-    const usuario = document.getElementById('usuario').value.trim();
-    const contrasena = document.getElementById('contrasena').value.trim();
+    const nombre = document.getElementById('nombre').value;
+    const apellido = document.getElementById('apellido').value;
+    const usuario = document.getElementById('usuario').value;
+    const contrasena = document.getElementById('contrasena').value;
     const tipoUsuario = document.getElementById('tipoUsuario').value;
 
     document.getElementById('err-nombre').innerHTML = '';
