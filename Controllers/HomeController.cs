@@ -28,10 +28,18 @@ public class HomeController : Controller
     }
     [HttpPost]
     public IActionResult Login(string usuario, string contrasena){
+        if (string.IsNullOrWhiteSpace(usuario) || usuario.Length < 4){
+            ViewBag.Error = "El usuario debe tener al menos 4 caracteres.";
+            return View();
+        }
 
-        if (usuario == null || usuario.Length < 4 ||
-            contrasena == null || contrasena.Length < 6){
-            ViewBag.Error = "El usuario debe tener al menos 4 caracteres y la contraseña 6.";
+        if (usuario.Any(ch => !char.IsLetterOrDigit(ch))){
+            ViewBag.Error = "El usuario no puede contener caracteres especiales.";
+            return View();
+        }
+
+        if (string.IsNullOrWhiteSpace(contrasena) || contrasena.Length < 6){
+            ViewBag.Error = "La contraseña debe tener al menos 6 caracteres.";
             return View();
         }
 
@@ -103,9 +111,8 @@ public class HomeController : Controller
         return View(usuarioActual);
     }
 
-ViewBag.Usuario = usuarioActual.Nombre;
-return View(usuarioActual);
-    }
+
+    
 
     [HttpPost]
     public IActionResult CerrarSesion(){
